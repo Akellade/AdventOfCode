@@ -1,10 +1,3 @@
-import os
-from datetime import date, datetime
-from collections import Counter
-import itertools
-import timeit
-from typing import ByteString
-
 
 chars = {"(":")","[":"]","{":"}","<":">"}
 scores = {")":3,"]":57,"}":1197,">":25137}

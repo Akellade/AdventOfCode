@@ -1,11 +1,9 @@
-import os
-from datetime import datetime
-
 thing = []
 
 with open("./3/input.txt", "r") as f:
     for line in f.readlines():
         thing.append((line.strip()))
+
 
 def getthing():
     thing = []
@@ -14,27 +12,27 @@ def getthing():
             thing.append((line.strip()))
     return thing
 
-def getcounter(things,i):
-    counter=0
+
+def getcounter(things, i):
+    counter = 0
     for th in things:
         if th[i] == "1":
-            counter+=1
-    if counter >= len(things)/2:
+            counter += 1
+    if counter >= len(things) / 2:
         return "1"
-    else :
+    else:
         return "0"
 
-def getcounter2(things,i):
-    counter=0
+
+def getcounter2(things, i):
+    counter = 0
     for th in things:
         if th[i] == "1":
-            counter+=1
-    if counter >= len(things)/2:
+            counter += 1
+    if counter >= len(things) / 2:
         return "0"
-    else :
+    else:
         return "1"
-
-
 
 
 def getepsilon(c):
@@ -42,11 +40,12 @@ def getepsilon(c):
     for bit in c:
         if bit > entries / 2:
             epsilon.append("0")
-            
+
         else:
             epsilon.append("1")
     epsilon = "".join(gamma)
     return epsilon
+
 
 entries = len(thing)
 bits = len(thing[0])
@@ -79,39 +78,32 @@ count = 0
 print("Part2")
 
 thing = getthing()
-oxy=0
-while len(thing)>1:
-   
+oxy = 0
+while len(thing) > 1:
+
     for i in range(0, bits):
-        counter = getcounter(thing,i)
- 
+        counter = getcounter(thing, i)
+
         for th in reversed(thing):
             if th[i] != counter:
                 thing.remove(th)
 
-oxy=thing[0]
-print("OxygenGen = {} ({})".format(oxy,int(oxy,2)))
+oxy = thing[0]
+print("OxygenGen = {} ({})".format(oxy, int(oxy, 2)))
 
-thing=getthing()
-c02=0
-while len(thing)>1:
-   
+thing = getthing()
+c02 = 0
+while len(thing) > 1:
+
     for i in range(0, bits):
-        if len(thing)==1:
+        if len(thing) == 1:
             break
-        counter = getcounter2(thing,i)
- 
+        counter = getcounter2(thing, i)
+
         for th in reversed(thing):
             if th[i] != counter:
                 thing.remove(th)
-c02=thing[0]
-print("C02 scrub = {} ({})".format(c02,int(c02,2)))
+c02 = thing[0]
+print("C02 scrub = {} ({})".format(c02, int(c02, 2)))
 
-print("result={}".format(int(oxy,2)*int(c02,2)))
-
-
-
-
-
-            
-
+print("result={}".format(int(oxy, 2) * int(c02, 2)))

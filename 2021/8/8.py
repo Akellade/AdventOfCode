@@ -1,13 +1,10 @@
-import os
-from datetime import date, datetime
-from collections import Counter
-import itertools
-import timeit
+
+
 
 
 def getthing():
     thing = []
-    with open("./8/input.txt", "r") as f:
+    with open("./2021/8/input.txt", "r") as f:
         for line in f.readlines():
             thing.append((line.strip()))
     return thing
