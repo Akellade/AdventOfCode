@@ -38,7 +38,7 @@ def PartTwo():
 
     print("PartTwo")
     thing = parsething2(getthing())
-    res = solve2(thing)
+    res = solv2e2(thing)
     print(res)
 
 
