@@ -8,70 +8,59 @@ from typing import ByteString
 
 chars = {"(":")","[":"]","{":"}","<":">"}
 scores = {")":3,"]":57,"}":1197,">":25137}
+scores2 = {"(":1,"[":2,"{":3,"<":4}
+opens = ['(','[','{','<']
+ends= [')',']','}','>']
 
 def getthing():
     thing = []
-    with open("./2021/10/example.txt", "r") as f:
+    with open("./2021/10/input.txt", "r") as f:
         for line in f.readlines():
             thing.append((line.strip()))
     return thing
 
 
-def filterIncomplete(thing):
-    output=[]
-    for line in thing:
-        if isLineComplete(line):
-            output.append(line)
-    return output
-
-
-def isLineComplete(line):
-    if len(line) % 2 ==0:
-        return True
-    else:
-        return False
-
-def isOpening(string):
-    if string in ['(','[','{','<']:
-        return True
-def isClosing(string):
-    if string in [')',']','}','>']:
-        return True
-
-def findClosing(line,open=''):
-    # {()()()>
-    chars = {"(":")","[":"]","{":"}","<":">"}
-
-    if open=='':
-        if isOpening(line[0]):
-            x = findClosing(line[1:],line[0])
-            return x
-        elif isClosing(line[0]):
-            return scores[line[0]]
-    elif isOpening(line[0]):
-        x =  findClosing(line[1:],line[0])
-        return x
-    elif isClosing(line[0]):
-        if chars[open] == line[0]:
-            x= isClosing(line[1:])
-        else:
-            return scores[line[0]]
-    
-
-
-
-
 def solve1(thing):
-    total =0
-    for l in thing:
-        total +=findClosing(l)
-    return total
-    
+    total  = 0
+    for line in thing:
+        checker = []
+        for c in line:
+            if c in opens:
+                checker.append(c)
+            elif c in ends and chars[checker[-1]] ==c:
+                checker.pop()
+            else:
+                total+= scores[c]
 
+                break
+    return total
+
+def solve2(thing):
+    scores = []
+    
+    for line in thing:
+        error=False
+        total  = 0
+        checker = []
+        for c in line:
+            
+            if c in opens:
+                checker.append(c)
+            elif c in ends and chars[checker[-1]] ==c:
+                checker.pop()
+            else:
+                error=True
+                break
+        if not error and len(checker):
+            for c in reversed(checker):
+                total*=5
+                total += scores2[c]
+            scores.append(total)
+    return sorted(scores)
 
 def PartOne():
-    thing = filterIncomplete(getthing())
-    res = solve1(thing)
+    
+    res = solve1(getthing())
 
     print("PartOne")
     print(res)
@@ -80,6 +69,8 @@ def PartOne():
 def PartTwo():
 
     print("PartTwo")
+    res = solve2(getthing())
+    print(res[int(len(res)/2)])
 
 
 PartOne()
