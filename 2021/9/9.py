@@ -8,7 +8,7 @@ from typing import ByteString
 
 def getthing():
     thing = []
-    with open("./9/input.txt", "r") as f:
+    with open("./2021/9/input.txt", "r") as f:
         for line in f.readlines():
             thing.append((line.strip()))
     return thing
@@ -58,6 +58,10 @@ def isLowPoint(val, testcoords, thing):
     return True
 
 def solve2(thing):
+    # Replace vals with unique unicode char to identify basins
+    # iterate a few times to ensure no stragglers
+    # when iterating swap range to iterate in reverse
+    
 
     var='®'
     chars = [(chr(ord(var)+i)) for i in range(2048)]
