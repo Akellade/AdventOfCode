@@ -1,6 +1,6 @@
 def getthing():
     thing = []
-    with open("./2021/11/example.txt", "r") as f:
+    with open("./2021/11/input.txt", "r") as f:
         for line in f.readlines():
             thing.append((line.strip()))
     return thing
@@ -23,7 +23,7 @@ def getTestCoords(x,y,thing):
     ]
 
     for i in reversed(range(len(testcoords))):
-        if testcoords[i][0] ==10 or testcoords[i][1] == 10:
+        if testcoords[i][0] ==len(thing) or testcoords[i][1] == len(thing):
             del testcoords[i]
         elif testcoords[i][0] == -1 or testcoords[i][1] ==-1:
             del testcoords[i]
@@ -47,19 +47,30 @@ def tick(thing):
     if len(flashvals )==1:
         for x,y in flashvals:
             testcoords = getTestCoords(x,y,thing)
-            thing = flash(thing,testcoords)
+            thing,vals = flash(thing,testcoords)
+            if len(vals) > 0:
+                for v in vals:    
+                    flashvals.append(v)
+
     elif len(flashvals )>1:
         for f in flashvals:
             x=f[0]
             y=f[1]
             testcoords = getTestCoords(x,y,thing)
-            thing = flash(thing,testcoords)
+            thing,vals = flash(thing,testcoords)
+            if len(vals) > 0:
+                for v in vals:    
+                    flashvals.append(v)
     
     for y in range(len(thing)):
         for x in range(len(thing[0])):
             if thing[y][x] == 'a':
                 thing[y][x] = '0'
                 flashcount+=1
+    
+    if flashcount == 100:
+        print("here")
+        return 0,0
     return thing,flashcount
 
 def flash(thing,coords):
@@ -73,20 +84,13 @@ def flash(thing,coords):
             pass
         else : 
             thing[y][x] = str(int(thing[y][x]) + 1)
-    
-    if len(flashvals )==1:
-        for x,y in flashvals:
-                testcoords = getTestCoords(x,y,thing)
-                thing = flash(thing,testcoords)
-    elif len(flashvals )>1:
-        testcoords = getTestCoords(x,y,thing)
-        thing = flash(thing,testcoords)
-    return thing
+
+    return thing,flashvals
 
 
 
 def solve1(thing):
-    stepcount = 100
+    stepcount = 1000
     total = 0
     for i in range(stepcount):
         print("iteration: {} ".format(i))
