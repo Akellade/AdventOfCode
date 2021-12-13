@@ -1,9 +1,9 @@
+chars = {"(": ")", "[": "]", "{": "}", "<": ">"}
+scores = {")": 3, "]": 57, "}": 1197, ">": 25137}
+scores2 = {"(": 1, "[": 2, "{": 3, "<": 4}
+opens = ["(", "[", "{", "<"]
+ends = [")", "]", "}", ">"]
 
-chars = {"(":")","[":"]","{":"}","<":">"}
-scores = {")":3,"]":57,"}":1197,">":25137}
-scores2 = {"(":1,"[":2,"{":3,"<":4}
-opens = ['(','[','{','<']
-ends= [')',']','}','>']
 
 def getthing():
     thing = []
@@ -14,45 +14,47 @@ def getthing():
 
 
 def solve1(thing):
-    total  = 0
+    total = 0
     for line in thing:
         checker = []
         for c in line:
             if c in opens:
                 checker.append(c)
-            elif c in ends and chars[checker[-1]] ==c:
+            elif c in ends and chars[checker[-1]] == c:
                 checker.pop()
             else:
-                total+= scores[c]
+                total += scores[c]
 
                 break
     return total
 
+
 def solve2(thing):
     scores = []
-    
+
     for line in thing:
-        error=False
-        total  = 0
+        error = False
+        total = 0
         checker = []
         for c in line:
-            
+
             if c in opens:
                 checker.append(c)
-            elif c in ends and chars[checker[-1]] ==c:
+            elif c in ends and chars[checker[-1]] == c:
                 checker.pop()
             else:
-                error=True
+                error = True
                 break
         if not error and len(checker):
             for c in reversed(checker):
-                total*=5
+                total *= 5
                 total += scores2[c]
             scores.append(total)
     return sorted(scores)
 
+
 def PartOne():
-    
+
     res = solve1(getthing())
 
     print("PartOne")
@@ -63,7 +65,7 @@ def PartTwo():
 
     print("PartTwo")
     res = solve2(getthing())
-    print(res[int(len(res)/2)])
+    print(res[int(len(res) / 2)])
 
 
 PartOne()

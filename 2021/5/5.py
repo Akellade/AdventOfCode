@@ -40,7 +40,8 @@ def genhorvercoords(vectors):
     for v in vectors:
         if v[0][0] == v[1][0]:
             rang = sorted((int(v[0][1]), int(v[1][1])))
-            # ranges got to be off by one on the end to include the last val! bugger
+            # ranges got to be off by one on the end to include the last val! 
+            # bugger
             for y in range(rang[0], rang[1] + 1):
                 results.append(((int(v[0][0]), y)))
         if v[0][1] == v[1][1]:
