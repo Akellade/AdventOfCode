@@ -1,11 +1,9 @@
-from os import times_result
-
-
 var = "a"
 lower = [(chr(ord(var) + i)) for i in range(26)]
 var = "A"
 upper = [(chr(ord(var) + i)) for i in range(26)]
 paths = []
+parttwo = False
 
 
 def getthing():
@@ -59,7 +57,11 @@ def step(path, nodes, caves):
             paths.append(path)
             return
 
-    if last[0] in lower and path.count(last) >= 2:
+    if parttwo is False:
+        x = 1
+    else:
+        x = 2
+    if last[0] in lower and path.count(last) >= x:
         caves = True
 
     if last[0] in lower and last != "end" and caves is True:
@@ -86,13 +88,19 @@ def PartOne():
 
     print("PartOne")
     print("found {} paths".format(str(len(paths))))
-    for p in paths:
-        print(",".join(p))
 
 
 def PartTwo():
-
+    global parttwo
+    parttwo = True
+    global paths
+    paths = []
     print("PartTwo")
+
+    nodes = parsething(getthing())
+    traverse(nodes)
+
+    print("found {} paths".format(str(len(paths))))
 
 
 PartOne()
